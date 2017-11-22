@@ -4,7 +4,7 @@ import React from "react";
 
 const IndexPage = ({ data }) => (
   <div>
-    <h3>Welcome to your new Gatsby site.</h3>
+    <h2>Test de GatsbyJS</h2>
     <hr />
     <div
       style={{
@@ -13,6 +13,9 @@ const IndexPage = ({ data }) => (
         justifyContent: "space-between"
       }}
     >
+      <p className="uk-text-lead uk-text-primary uk-width-1-1">
+        Liste des produits :
+      </p>
       {data.allContentfulProduct.edges.map(({ node }, i) => (
         <div
           key={i}
@@ -31,6 +34,46 @@ const IndexPage = ({ data }) => (
           <span style={{ textAlign: "center", verticalAlign: "super" }}>
             {node.productName.productName}
           </span>
+        </div>
+      ))}
+    </div>
+    <hr />
+    <div className="uk-margin-top">
+      <p className="uk-text-lead uk-text-primary uk-width-1-1">
+        Liste des marques :
+      </p>
+      {data.allContentfulBrand.edges.map(({ node }, i) => (
+        <div key={i} className="uk-margin-bottom">
+          <span className="uk-text-bold">{node.companyName.companyName}</span>
+          <div>
+            <p className="uk-margin-small-top">
+              {node.companyDescription.companyDescription}
+            </p>
+            <Img
+              resolutions={node.logo.resolutions}
+              outerWrapperClassName="uk-inline-block"
+            />
+          </div>
+          <p>
+            <a target="_blank" href={node.website}>
+              {node.website}
+            </a>
+          </p>
+        </div>
+      ))}
+    </div>
+    <hr />
+    <div className="uk-margin-top">
+      <p className="uk-text-lead uk-text-primary uk-width-1-1">
+        Liste des catégories :
+      </p>
+      {data.allContentfulCategory.edges.map(({ node }, i) => (
+        <div key={i} className="uk-margin-bottom uk-width-1-2 uk-inline-block">
+          <span className="uk-text-bold">{node.title.title}</span>
+          <p className="uk-margin-small-top">
+            {node.categoryDescription.categoryDescription}
+          </p>
+          <Img resolutions={node.icon.resolutions} />
         </div>
       ))}
     </div>
@@ -53,6 +96,45 @@ export const query = graphql`
               height
               src
               ...GatsbyContentfulResolutions
+            }
+          }
+        }
+      }
+    }
+    allContentfulBrand {
+      edges {
+        node {
+          companyName {
+            companyName
+          }
+          companyDescription {
+            companyDescription
+          }
+          logo {
+            resolutions(width: 150) {
+              width
+              height
+              src
+            }
+          }
+          website
+        }
+      }
+    }
+    allContentfulCategory {
+      edges {
+        node {
+          title {
+            title
+          }
+          categoryDescription {
+            categoryDescription
+          }
+          icon {
+            resolutions(width: 100) {
+              src
+              width
+              height
             }
           }
         }

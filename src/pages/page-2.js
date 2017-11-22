@@ -3,7 +3,7 @@ import React from "react";
 
 const SecondPage = ({ data }) => (
   <div>
-    <h3>{data.allContentfulBlogPost.edges[0].node.title}</h3>
+    <h2>{data.allContentfulBlogPost.edges[0].node.title}</h2>
     <hr />
     <p>{data.allContentfulBlogPost.edges[0].node.content.content}</p>
   </div>
